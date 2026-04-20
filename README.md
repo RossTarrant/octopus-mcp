@@ -1,4 +1,4 @@
-# MCP Go Starter
+# Octopus MCP
 
 [![CI](https://github.com/SamMorrowDrums/mcp-go-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/SamMorrowDrums/mcp-go-starter/actions/workflows/ci.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/SamMorrowDrums/mcp-go-starter)](https://goreportcard.com/report/github.com/SamMorrowDrums/mcp-go-starter)
