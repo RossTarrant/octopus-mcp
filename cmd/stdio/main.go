@@ -12,6 +12,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"log"
 	"os"
 	"os/signal"
@@ -40,8 +41,12 @@ func run() error {
 		cancel()
 	}()
 
+	// Check if example-tools flag has been provided
+	includeExampleTools := flag.Bool("include-tools", false, "include example tools")
+	flag.Parse()
+
 	// Create the MCP server
-	srv := server.NewServer()
+	srv := server.NewServer(server.McpServerConfig{IncludeExampleTools: *includeExampleTools})
 	server.SetGlobalServer(srv)
 
 	// Create stdio transport

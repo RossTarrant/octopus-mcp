@@ -36,7 +36,7 @@ var bonusToolLoaded = false
 
 type helloInput struct {
 	Name string `json:"name" jsonschema:"Name of the person to greet"`
-	Age int `json:"age" jsonschema:"Age of the person to greet, optional"`
+	Age  int    `json:"age" jsonschema:"Age of the person to greet, optional"`
 }
 
 type weatherInput struct {
@@ -91,7 +91,7 @@ func boolPtr(b bool) *bool {
 	return &b
 }
 
-func registerTools(server *mcp.Server) {
+func registerExampleTools(server *mcp.Server) {
 	// hello — The simplest tool. Use it to verify client↔server connectivity.
 	mcp.AddTool(server, &mcp.Tool{
 		Name:        "hello",

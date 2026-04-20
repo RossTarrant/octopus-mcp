@@ -33,11 +33,15 @@ const ServerInstructions = "# MCP Go Starter Server\n\n" +
 	"- All tools include annotations (readOnlyHint, idempotentHint, openWorldHint) to guide safe usage\n" +
 	"- Resources and prompts are available for context and templating — use `resources/list` and `prompts/list` to discover them"
 
+type McpServerConfig struct {
+	IncludeExampleTools bool
+}
+
 // NewServer creates and configures the MCP server with all features.
 //
 // CAPABILITIES tell the client what this server supports. During the MCP
 // handshake, the client reads these to know which features are available.
-func NewServer() *mcp.Server {
+func NewServer(cfg McpServerConfig) *mcp.Server {
 	server := mcp.NewServer(
 		&mcp.Implementation{
 			Name:    "mcp-go-starter",
@@ -63,7 +67,10 @@ func NewServer() *mcp.Server {
 		},
 	)
 
-	registerTools(server)
+	if (cfg.IncludeExampleTools){
+		registerExampleTools(server)
+	}
+	
 	registerResources(server)
 	registerPrompts(server)
 

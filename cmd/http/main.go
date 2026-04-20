@@ -13,6 +13,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -48,9 +49,13 @@ func run() error {
 		port = "3000"
 	}
 
+	// Check if example-tools flag has been provided
+	includeExampleTools := flag.Bool("include-example-tools", false, "include example tools")
+	flag.Parse()
+
 	// Create HTTP handler for MCP
 	handler := mcp.NewStreamableHTTPHandler(func(_ *http.Request) *mcp.Server {
-		srv := server.NewServer()
+		srv := server.NewServer(server.McpServerConfig{IncludeExampleTools: *includeExampleTools})
 		server.SetGlobalServer(srv)
 		return srv
 	}, nil)
