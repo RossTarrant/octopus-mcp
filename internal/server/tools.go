@@ -36,6 +36,7 @@ var bonusToolLoaded = false
 
 type helloInput struct {
 	Name string `json:"name" jsonschema:"Name of the person to greet"`
+	Age int `json:"age" jsonschema:"Age of the person to greet, optional"`
 }
 
 type weatherInput struct {
@@ -103,6 +104,11 @@ func registerTools(server *mcp.Server) {
 					"type":        "string",
 					"title":       "Name",
 					"description": "Name of the person to greet",
+				},
+				"age": map[string]interface{}{
+					"type":        "integer",
+					"title":       "Age",
+					"description": "Age of the person to greet",
 				},
 			},
 			"required": []string{"name"},
@@ -354,9 +360,13 @@ func registerTools(server *mcp.Server) {
 }
 
 func helloHandler(_ context.Context, _ *mcp.CallToolRequest, input helloInput) (*mcp.CallToolResult, any, error) {
+	msg := fmt.Sprintf("Hello, %s, welcome to the MCP server!", input.Name)
+	if input.Age > 0 {
+		msg = fmt.Sprintf("Hello, %s, welcome to the MCP server! Thanks for telling me that you are %d years old.", input.Name, input.Age)
+	}
 	return &mcp.CallToolResult{
 		Content: []mcp.Content{
-			&mcp.TextContent{Text: fmt.Sprintf("Hello, %s! Welcome to MCP.", input.Name)},
+			&mcp.TextContent{Text: msg},
 		},
 	}, nil, nil
 }
