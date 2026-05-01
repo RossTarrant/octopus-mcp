@@ -67,10 +67,11 @@ func NewServer(cfg McpServerConfig) *mcp.Server {
 		},
 	)
 
-	if (cfg.IncludeExampleTools){
+	if cfg.IncludeExampleTools {
 		registerExampleTools(server)
 	}
-	
+
+	registerTools(server)
 	registerResources(server)
 	registerPrompts(server)
 
